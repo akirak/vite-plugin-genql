@@ -1,5 +1,14 @@
-// See https://eslint.org/docs/latest/use/configure/configuration-files-new for
-// reference
-import stylistic from "@stylistic/eslint-plugin";
+import antfu from "@antfu/eslint-config"
 
-export default [stylistic.configs["all-flat"]];
+export default antfu({
+  stylistic: {
+    indent: 2,
+    quotes: "double",
+  },
+  ignores: [
+    "dist",
+  ],
+  rules: {
+    "no-console": "off",
+  },
+})
