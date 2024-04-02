@@ -1,6 +1,6 @@
-import * as Genql from '@genql/cli';
 import path from 'node:path';
 import fs from 'node:fs';
+import * as Genql from '@genql/cli';
 
 function genql(options) {
   let mode;
@@ -21,12 +21,10 @@ function genql(options) {
       mode = env.command;
     },
     buildStart() {
-      if (mode === "build" && onBuild) {
+      if (mode === "build" && onBuild)
         runGenql();
-      }
-      if (mode === "serve" && onServerStart) {
+      if (mode === "serve" && onServerStart)
         runGenql();
-      }
     },
     configureServer(server) {
       const sourceFile = path.resolve(options.schemaFile);
