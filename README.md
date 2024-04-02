@@ -39,11 +39,13 @@ export type Options = {
 };
 ```
 
-By default, the plugin regenerates your types in the following events, but you
-can tweak it by overriding the fields in `events`:
+By default, the plugin regenerates your types in the following events:
 
 - When the entire project is built (`onBuild`)
-- When the server starts (`onServerStart`)
 - When the schema file is updated (`onFileChange`)
 
-You can set extra options for Genql in `config`.
+The following events are disabled by default:
+
+- When the server starts (`onServerStart`)
+
+You can set extra options for Genql via `config`.
