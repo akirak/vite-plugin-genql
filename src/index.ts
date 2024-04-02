@@ -18,7 +18,7 @@ export default function genql(options: Options): Plugin {
   let mode: string
 
   const onBuild = options?.events?.onBuild ?? true
-  const onServerStart = options?.events?.onServerStart ?? true
+  const onServerStart = options?.events?.onServerStart ?? false
   const onFileChange = options?.events?.onFileChange ?? true
 
   function runGenql() {

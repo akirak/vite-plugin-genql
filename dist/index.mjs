@@ -5,7 +5,7 @@ import * as Genql from '@genql/cli';
 function genql(options) {
   let mode;
   const onBuild = options?.events?.onBuild ?? true;
-  const onServerStart = options?.events?.onServerStart ?? true;
+  const onServerStart = options?.events?.onServerStart ?? false;
   const onFileChange = options?.events?.onFileChange ?? true;
   function runGenql() {
     const sourceFile = path.resolve(options.schemaFile);
