@@ -3,13 +3,13 @@ name: Lint and build the npm package
 on:
   pull_request:
     paths-ignore:
-    - README.*
+      - README.*
 
   push:
     branches:
-    - master
+      - master
     paths-ignore:
-    - README.*
+      - README.*
 
   workflow_dispatch:
 
@@ -23,40 +23,40 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
 
-    - name: Get npm cache directory
-      id: npm-cache-dir
-      run: echo "dir=$(npm config get cache)" >> "${GITHUB_OUTPUT}"
+      - name: Get npm cache directory
+        id: npm-cache-dir
+        run: echo "dir=$(npm config get cache)" >> "${GITHUB_OUTPUT}"
 
-    - uses: actions/cache@v3
-      id: npm-cache
-      with:
-        path: ${{ steps.npm-cache-dir.outputs.dir }}
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
+      - uses: actions/cache@v3
+        id: npm-cache
+        with:
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
-    - name: Install dependencies
-      run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-    - name: Run eslint
-      run: npm run eslint
+      - name: Run eslint
+        run: npm run eslint
 
-    - name: Build the package
-      if: ${{ github.ref != 'refs/heads/master' }}
-      run: npm run build
+      - name: Build the package
+        if: ${{ github.ref != 'refs/heads/master' }}
+        run: npm run build
 
-    - name: Push the changes to the repository
-      if: ${{ github.event_name == 'pull_request' }}
-      run: |
-        if ! git diff-files --quiet dist
-        then
-          git config --add user.name 'github-actions[bot]'
-          git config --add user.email '6270544+github-actions[bot]@users.noreply.github.com'
-          git add dist
-          git commit -m 'chore: Build the library'
-          git push --no-verify origin ${{ github.event.pull_request.base.ref }}
-        fi
+      - name: Push the changes to the repository
+        if: ${{ github.event_name == 'pull_request' }}
+        run: |
+          if ! git diff-files --quiet dist
+          then
+            git config --add user.name 'github-actions[bot]'
+            git config --add user.email '6270544+github-actions[bot]@users.noreply.github.com'
+            git add dist
+            git commit -m 'chore: Build the library'
+            git push --no-verify origin ${{ github.event.pull_request.base.ref }}
+          fi
