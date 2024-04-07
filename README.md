@@ -1,4 +1,4 @@
-# Vite Plugin for Genql
+# Genql Plugin for Vite
 
 This is a [Genql](https://github.com/remorses/genql) plugin for Vite. It
 regenerates client types every time a schema file (`*.graphql`) is updated or
