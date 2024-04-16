@@ -21,13 +21,13 @@ export default function genql(options: Options): Plugin {
   const onServerStart = options?.events?.onServerStart ?? false
   const onFileChange = options?.events?.onFileChange ?? true
 
-  function runGenql() {
+  async function runGenql() {
     const sourceFile = path.resolve(options.schemaFile)
     const config: Config = {
       ...options.config,
       schema: fs.readFileSync(sourceFile).toString(),
     }
-    Genql.generate(config)
+    await Genql.generate(config)
   }
 
   return {
@@ -37,21 +37,21 @@ export default function genql(options: Options): Plugin {
       mode = env.command
     },
 
-    buildStart() {
+    async buildStart() {
       if (mode === "build" && onBuild)
-        runGenql()
+        await runGenql()
 
       if (mode === "serve" && onServerStart)
-        runGenql()
+        await runGenql()
     },
 
-    configureServer(server) {
+    async configureServer(server) {
       const sourceFile = path.resolve(options.schemaFile)
 
       const listener = async (filePath: string) => {
         if (filePath === sourceFile) {
           console.log(`The GraphQL schema has been changed`)
-          runGenql()
+          await runGenql()
         }
       }
 

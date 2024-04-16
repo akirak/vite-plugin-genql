@@ -7,31 +7,31 @@ function genql(options) {
   const onBuild = options?.events?.onBuild ?? true;
   const onServerStart = options?.events?.onServerStart ?? false;
   const onFileChange = options?.events?.onFileChange ?? true;
-  function runGenql() {
+  async function runGenql() {
     const sourceFile = path.resolve(options.schemaFile);
     const config = {
       ...options.config,
       schema: fs.readFileSync(sourceFile).toString()
     };
-    Genql.generate(config);
+    await Genql.generate(config);
   }
   return {
     name: "vite-plugin-genql",
     config(_, env) {
       mode = env.command;
     },
-    buildStart() {
+    async buildStart() {
       if (mode === "build" && onBuild)
-        runGenql();
+        await runGenql();
       if (mode === "serve" && onServerStart)
-        runGenql();
+        await runGenql();
     },
-    configureServer(server) {
+    async configureServer(server) {
       const sourceFile = path.resolve(options.schemaFile);
       const listener = async (filePath) => {
         if (filePath === sourceFile) {
           console.log(`The GraphQL schema has been changed`);
-          runGenql();
+          await runGenql();
         }
       };
       return () => {
