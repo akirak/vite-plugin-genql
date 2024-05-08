@@ -46,17 +46,9 @@ jobs:
         run: npm run eslint
 
       - name: Build the package
-        if: ${{ github.ref != 'refs/heads/master' }}
         run: npm run build
 
-      - name: Push the changes to the repository
-        if: ${{ github.event_name == 'pull_request' }}
+      - name: Check if there is no change
         run: |
-          if ! git diff-files --quiet dist
-          then
-            git config --add user.name 'github-actions[bot]'
-            git config --add user.email '6270544+github-actions[bot]@users.noreply.github.com'
-            git add dist
-            git commit -m 'chore: Build the library'
-            git push --no-verify origin ${{ github.event.pull_request.base.ref }}
-          fi
+          git add dist \
+          && git diff-index --cached --exit-code HEAD -- dist
