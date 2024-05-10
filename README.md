@@ -10,8 +10,8 @@ Below is an example where the source schema file is `./schema.graphql` and files
 are generated into `src/generated` directory:
 
 ``` typescript
-import { defineConfig } from 'vite';
-import genql from 'vite-plugin-genql';
+import { defineConfig } from "vite"
+import genql from "vite-plugin-genql"
 
 export default defineConfig({
   plugins: [
@@ -22,21 +22,21 @@ export default defineConfig({
       }
     }),
   ],
-});
+})
 ```
 
 The full options are defined as follows:
 
 ``` typescript
-export type Options = {
-  schemaFile: string;
+export interface Options {
+  schemaFile: string
   events?: {
-    onBuild?: boolean;
-    onServerStart?: boolean;
-    onFileChange?: boolean;
-  },
+    onBuild?: boolean
+    onServerStart?: boolean
+    onFileChange?: boolean
+  }
   config: Omit<Config, "schema">
-};
+}
 ```
 
 By default, the plugin regenerates your types in the following events:
