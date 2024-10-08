@@ -1,5 +1,5 @@
-import { Plugin } from 'vite';
 import { Config } from '@genql/cli/dist/config';
+import { Plugin } from 'vite';
 
 interface Options {
     schemaFile: string;
