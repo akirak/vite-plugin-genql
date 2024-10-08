@@ -1,8 +1,8 @@
-import path from "node:path"
-import fs from "node:fs"
-import type { Plugin } from "vite"
-import * as Genql from "@genql/cli"
 import type { Config } from "@genql/cli/dist/config"
+import type { Plugin } from "vite"
+import fs from "node:fs"
+import path from "node:path"
+import * as Genql from "@genql/cli"
 
 export interface Options {
   schemaFile: string
