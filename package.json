@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^3.0.0",
-    "@stylistic/eslint-plugin": "^2.0.0",
+    "@stylistic/eslint-plugin": "^4.0.0",
     "@types/node": "^20.12.2",
     "eslint": "^9.0.0",
     "typescript": "^5.4.3",
